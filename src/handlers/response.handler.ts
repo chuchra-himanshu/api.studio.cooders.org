@@ -14,6 +14,13 @@ class APIResponse {
     this.success = true;
     if (data) this.data = data;
   }
+
+  static send(status: number, message = "Success", data?: any): APIResponse {
+    if (data) {
+      return new APIResponse({ message, status, data });
+    }
+    return new APIResponse({ message, status });
+  }
 }
 
 export default APIResponse;

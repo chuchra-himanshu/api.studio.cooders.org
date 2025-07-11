@@ -15,6 +15,17 @@ class APIError extends Error {
     if (data) this.data = data;
     this.stack = String(Error.captureStackTrace(this, this.constructor));
   }
+
+  static send(
+    status: number,
+    message = "Something went wrong!",
+    data?: any
+  ): APIError {
+    if (data) {
+      return new APIError({ message, status, data });
+    }
+    return new APIError({ message, status });
+  }
 }
 
 export default APIError;
