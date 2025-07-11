@@ -7,8 +7,12 @@
     "rootDir": "./src",
     "strict": true,
     "esModuleInterop": true,
+    "moduleDetection": "force",
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true
+  },
+  "ts-node": {
+    "esm": true
   },
   "include": ["src"]
 }
