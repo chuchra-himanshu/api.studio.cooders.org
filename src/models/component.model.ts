@@ -2,6 +2,30 @@
 import mongoose from "mongoose";
 
 // Schema Section
+const componentPropSchema = new mongoose.Schema<ComponentPropSchemaInterface>({
+  propName: {
+    type: String,
+    required: true,
+  },
+  defaultValue: {
+    type: String,
+  },
+  inputType: {
+    type: String,
+    required: true,
+    enum: ["DROPDOWN", "TOGGLE", "RADIO", "TEXTFIELD"],
+  },
+  valuesType: {
+    type: String,
+    required: true,
+  },
+  visibility: {
+    type: Boolean,
+    default: true,
+    required: true,
+  },
+});
+
 const componentSchema = new mongoose.Schema<ComponentSchemaInterface>(
   {
     title: {
@@ -21,22 +45,7 @@ const componentSchema = new mongoose.Schema<ComponentSchemaInterface>(
       required: true,
     },
     props: {
-      type: [
-        {
-          key: {
-            type: String,
-            required: true,
-          },
-          value: {
-            type: String,
-          },
-          visibility: {
-            type: Boolean,
-            default: true,
-            required: true,
-          },
-        },
-      ],
+      type: [componentPropSchema],
       default: [],
     },
   },

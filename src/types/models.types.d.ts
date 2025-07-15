@@ -5,13 +5,17 @@ interface LibrarySchemaInterface extends Document {
   slug: string;
 }
 
+interface ComponentPropSchemaInterface {
+  propName: string;
+  defaultValue: string;
+  inputType: "DROPDOWN" | "TOGGLE" | "RADIO" | "TEXTFIELD";
+  valuesType: string;
+  visibility: boolean;
+}
+
 interface ComponentSchemaInterface extends Document {
   title: string;
   icon: string;
   visibility: boolean;
-  props: {
-    key: string;
-    value: string;
-    visibility: boolean;
-  }[];
+  props: ComponentPropSchemaInterface[];
 }
