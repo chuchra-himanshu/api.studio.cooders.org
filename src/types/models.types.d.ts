@@ -40,3 +40,21 @@ interface StyleSchemaInterface extends Document {
   cssSupport: boolean;
   tailwindSupport: boolean;
 }
+
+interface DesignSchemaInterface extends Document {
+  library: ObjectId;
+  component: ObjectId;
+  props: {
+    propName: string;
+    value: string;
+  }[];
+  inputStyles: {
+    propName: string;
+    value: string;
+  }[];
+  cssValues: {
+    propName: string;
+    value: string;
+  }[];
+  tailwindValues: string;
+}
