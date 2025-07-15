@@ -33,6 +33,11 @@ const designSchema = new mongoose.Schema<DesignSchemaInterface>(
       },
     ],
     tailwindValues: String,
+    exportedJSON: {
+      type: mongoose.Schema.Types.Mixed,
+      required: false,
+      default: {},
+    },
   },
   {
     timestamps: true,

@@ -57,4 +57,5 @@ interface DesignSchemaInterface extends Document {
     value: string;
   }[];
   tailwindValues: string;
+  exportedJSON: Record<string, any>;
 }
