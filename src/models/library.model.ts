@@ -26,6 +26,11 @@ const librarySchema = new mongoose.Schema<LibrarySchemaInterface>(
       required: true,
       unique: true,
     },
+    visibility: {
+      type: Boolean,
+      required: true,
+      default: true,
+    },
   },
   {
     timestamps: true,

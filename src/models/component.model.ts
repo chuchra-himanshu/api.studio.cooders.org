@@ -28,6 +28,11 @@ const componentPropSchema = new mongoose.Schema<ComponentPropSchemaInterface>({
 
 const componentSchema = new mongoose.Schema<ComponentSchemaInterface>(
   {
+    library: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Library",
+      required: true,
+    },
     title: {
       type: String,
       trim: true,
