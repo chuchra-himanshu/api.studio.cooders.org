@@ -5,7 +5,9 @@ interface LibrarySchemaInterface extends Document {
   visibility: boolean;
 }
 
-interface ComponentPropSchemaInterface {
+interface PropSchemaInterface {
+  library: ObjectId;
+  component: ObjectId;
   propName: string;
   defaultValue: string;
   inputType: "DROPDOWN" | "TOGGLE" | "RADIO" | "TEXTFIELD";
@@ -18,7 +20,6 @@ interface ComponentSchemaInterface extends Document {
   title: string;
   icon: string;
   visibility: boolean;
-  props: ComponentPropSchemaInterface[];
 }
 
 interface StyleSchemaInterface extends Document {
