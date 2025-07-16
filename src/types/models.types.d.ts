@@ -5,6 +5,13 @@ interface LibrarySchemaInterface extends Document {
   visibility: boolean;
 }
 
+interface ComponentSchemaInterface extends Document {
+  library: ObjectId;
+  title: string;
+  icon: string;
+  visibility: boolean;
+}
+
 interface PropSchemaInterface {
   library: ObjectId;
   component: ObjectId;
@@ -12,13 +19,6 @@ interface PropSchemaInterface {
   defaultValue: string;
   inputType: "DROPDOWN" | "TOGGLE" | "RADIO" | "TEXTFIELD";
   valuesType: string;
-  visibility: boolean;
-}
-
-interface ComponentSchemaInterface extends Document {
-  library: ObjectId;
-  title: string;
-  icon: string;
   visibility: boolean;
 }
 
