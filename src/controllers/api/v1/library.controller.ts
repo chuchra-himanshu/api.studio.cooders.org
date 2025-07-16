@@ -6,22 +6,20 @@ import mongoose from "mongoose";
 
 // Controller End-Points
 const createLibrary = asyncHandler(async (req: Request, res: Response) => {
-  const { title, url, logo, slug } = req.body;
+  const { title, url, logo, visibility } = req.body;
 
-  const existingLibrary = await Library.findOne({
-    $or: [{ title }, { slug }],
-  }).lean();
-
+  const existingLibrary = await Library.findOne({ title }).lean();
   if (existingLibrary) {
-    const message =
-      existingLibrary.title === title
-        ? "Library with this title already exists!"
-        : "Library with this slug already exists!";
-
-    return res.status(409).json(APIError.send(409, message));
+    return res.status(409).json(APIError.send(409, "Library already exists!"));
   }
 
-  await Library.create({ title, url, logo, slug });
+  await Library.create({
+    title,
+    url,
+    logo,
+    visibility,
+  });
+
   return res
     .status(201)
     .json(APIResponse.send(201, "Library created successfully"));
@@ -36,11 +34,7 @@ const getLibraries = asyncHandler(async (req: Request, res: Response) => {
 
 const updateLibrary = asyncHandler(async (req: Request, res: Response) => {
   const { library_id } = req.params;
-  const updateData = req.body;
-
-  if (!mongoose.Types.ObjectId.isValid(library_id)) {
-    return res.status(400).json(APIError.send(400, "Invalid Library ID"));
-  }
+  const { title, url, logo, visibility } = req.body;
 
   const existingLibrary = await Library.findById(library_id).lean();
   if (!existingLibrary) {
@@ -49,26 +43,34 @@ const updateLibrary = asyncHandler(async (req: Request, res: Response) => {
       .json(APIError.send(404, "Library not found with given ID"));
   }
 
-  const conflict = await Library.findOne({
-    _id: { $ne: library_id },
-    $or: [
-      updateData.title ? { title: updateData.title } : {},
-      updateData.slug ? { slug: updateData.slug } : {},
-    ].filter(Boolean),
-  }).lean();
-
-  if (conflict) {
-    const message =
-      conflict.title === updateData.title
-        ? "Another library with this title already exists!"
-        : "Another library with this slug already exists!";
-    return res.status(409).json(APIError.send(409, message));
+  if (title != existingLibrary.title) {
+    const conflict = await Library.findOne({
+      _id: { $ne: library_id },
+      title: title,
+    }).lean();
+    if (conflict) {
+      return res
+        .status(409)
+        .json(
+          APIError.send(409, "Another library with this title already exists!")
+        );
+    }
   }
 
-  await Library.findByIdAndUpdate(library_id, updateData, {
-    new: true,
-    runValidators: true,
-  }).lean();
+  await Library.findByIdAndUpdate(
+    library_id,
+    {
+      title,
+      url,
+      logo,
+      visibility,
+    },
+    {
+      new: true,
+      runValidators: true,
+    }
+  ).lean();
+
   return res
     .status(200)
     .json(APIResponse.send(200, "Library updated successfully"));
@@ -76,10 +78,6 @@ const updateLibrary = asyncHandler(async (req: Request, res: Response) => {
 
 const deleteLibrary = asyncHandler(async (req: Request, res: Response) => {
   const { library_id } = req.params;
-
-  if (!mongoose.Types.ObjectId.isValid(library_id)) {
-    return res.status(400).json(APIError.send(400, "Invalid Library ID"));
-  }
 
   const deletedLibrary = await Library.findByIdAndDelete(library_id).lean();
 

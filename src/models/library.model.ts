@@ -20,12 +20,6 @@ const librarySchema = new mongoose.Schema<LibrarySchemaInterface>(
       trim: true,
       required: true,
     },
-    slug: {
-      type: String,
-      trim: true,
-      required: true,
-      unique: true,
-    },
     visibility: {
       type: Boolean,
       required: true,
