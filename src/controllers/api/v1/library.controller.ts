@@ -2,7 +2,6 @@
 import { type Response, type Request } from "express";
 import { APIError, APIResponse, asyncHandler } from "../../../handlers";
 import { Library } from "../../../models";
-import mongoose from "mongoose";
 
 // Controller End-Points
 const createLibrary = asyncHandler(async (req: Request, res: Response) => {
