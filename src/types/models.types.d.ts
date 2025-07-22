@@ -22,21 +22,23 @@ interface PropSchemaInterface {
   visibility: boolean;
 }
 
+interface CSSPropSchemaInterface extends Document {
+  title: string;
+  displayType: "GROUP" | "SINGLE";
+  items: {
+    itemTitle: string;
+    propName: string;
+    inputType: "DROPDOWN" | "TOGGLE" | "RADIO" | "TEXTFIELD";
+    valuesType: string;
+    visibility: boolean;
+  }[];
+  visibility: boolean;
+}
+
 interface StyleSchemaInterface extends Document {
   library: ObjectId;
   component: ObjectId;
-  inputStyles: {
-    title: string;
-    displayType: "GROUP" | "SINGLE";
-    items: {
-      itemTitle: string;
-      propName: string;
-      inputType: "DROPDOWN" | "TOGGLE" | "RADIO" | "TEXTFIELD";
-      valuesType: string;
-      visibility: boolean;
-    }[];
-    visibility: boolean;
-  }[];
+  inputStyles: ObjectId[];
   cssSupport: boolean;
   tailwindSupport: boolean;
 }

@@ -16,46 +16,8 @@ const styleSchema = new mongoose.Schema<StyleSchemaInterface>(
     },
     inputStyles: [
       {
-        title: {
-          type: String,
-          required: true,
-        },
-        displayType: {
-          type: String,
-          required: true,
-          enum: ["GROUP", "SINGLE"],
-        },
-        items: [
-          {
-            itemTitle: {
-              type: String,
-              required: true,
-            },
-            propName: {
-              type: String,
-              required: true,
-            },
-            inputType: {
-              type: String,
-              required: true,
-              enum: ["DROPDOWN", "TOGGLE", "RADIO", "TEXTFIELD"],
-            },
-            valuesType: {
-              type: String,
-              required: true,
-            },
-            visibility: {
-              type: Boolean,
-              required: true,
-              default: true,
-            },
-          },
-        ],
-        visibility: {
-          type: Boolean,
-          required: true,
-          default: true,
-        },
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "CSSProp",
       },
     ],
     cssSupport: {
