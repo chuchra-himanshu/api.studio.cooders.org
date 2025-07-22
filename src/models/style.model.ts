@@ -13,6 +13,7 @@ const styleSchema = new mongoose.Schema<StyleSchemaInterface>(
       type: mongoose.Schema.Types.ObjectId,
       ref: "Component",
       required: true,
+      unique: true,
     },
     inputStyles: [
       {
